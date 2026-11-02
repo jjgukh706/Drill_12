@@ -1,0 +1,24 @@
+stateDiagram-v2
+    [*] --> IDLE
+
+    IDLE --> SLEEP : fall_asleep (5초 경과)
+    SLEEP --> IDLE : wake_up (SPACE)
+    IDLE --> RUN : start_run (←/→ 누름)
+    SLEEP --> RUN : start_run (←/→ 누름)
+    RUN --> IDLE : stop_run (←/→ 모두 뗌, dir == 0)
+
+    note right of IDLE
+        SPACE: fire_ball() -> Ball 생성
+        상태/방향 변화 없음
+    end note
+
+    note right of RUN
+        SPACE: fire_ball() -> Ball 생성
+        상태/방향 변화 없음
+        ←/→: dir, face_dir 갱신만
+    end note
+
+    note right of SLEEP
+        SPACE: wake_up
+        ←/→: start_run
+    end note
